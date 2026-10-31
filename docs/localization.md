@@ -164,8 +164,9 @@ wins over the system locale. Auto recognizes `zh-Hant` and unscripted `zh-TW`, `
 region and does not select Traditional Chinese; bare `zh` and explicit `Hans` select Simplified Chinese (`zh`). BCP 47
 extensions do not change script selection.
 
-The Traditional Chinese catalog contains 1350 entries; the Ukrainian reference catalog
-contains 1357. Seven reference keys are missing and fall back to English. The earlier
+The Traditional Chinese catalog contains 1357 entries after seven supplemental entries
+from @icec8c8. Against upstream `7cee285`, the Ukrainian reference contains 1368 entries;
+11 reference keys still fall back to English. This is not complete interface coverage. The earlier
 integration from `b275021` to `9bfecc7` added 29 keys and removed the obsolete `WCS ⌄`
 key, increasing the catalog from 1322 to 1350 entries. Commands, accepted English
 keywords, CLI/MCP/control labels, drawing text and user names retain their source spelling.
@@ -187,7 +188,24 @@ Chinese preference remains intact. No font files are added by this contribution.
 Regression tests cover script/region selection, saved preferences, plural templates,
 unchanged automation/user data, font ordering and stale reference keys. Missing translations
 remain non-fatal and are reported by `translation_gaps` through `cargo xtask i18n`.
-The integration received static catalog checks only in the Windows editing environment:
-Rust tooling was unavailable. Compilation, cargo xtask ci, native/embedded-font rendering,
-DPI, layout and persistence still require validation before claiming release support.
-Original catalog attribution credits @rg147258.
+The current integration and supplement received static source/catalog checks only; no
+automated or simulated repository tests were run. Compilation, cargo xtask ci,
+native/embedded-font rendering, DPI, layout and persistence remain unverified here.
+The shared glyph test installs CJK fonts for `zh-Hant`; without an available font it
+prints a skip message and leaves glyph coverage unverified. Existing dedicated glyph
+and live-switch tests can also return early without CJK fonts, so a passing test count
+alone does not establish that Chinese rendering was exercised.
+
+In [PR #529's supplemental proposal](https://github.com/storytold/cadcraft/pull/529#issuecomment-6360828340),
+@icec8c8 reports Windows/Rust 1.99.0/MSVC validation of `8314bfb` plus the original patch
+(SHA-256 `5f8cdf1087ea7a797e7dfb7af04c4f3e110186067eb622234ff388dbb003765a`):
+23 i18n tests, a separately executed gap report, seven CI stages and a native Options
+screenshot review. These are contributor-reported historical results, not independently
+reproduced here or official CI results for this integration.
+
+Upstream already fixed the Unix-only `walk` test usage and retains the unconditional
+extreme-day calendar calculation assertion. The end-to-end `SystemTime` assertion for
+`u64::MAX / 2` seconds runs only where `checked_add` can represent it; otherwise that
+path is not validated. This supplement does not change those upstream tests.
+Original catalog attribution credits @rg147258; the seven additional entries by
+@icec8c8 are AI-assisted English-source translations under MIT OR Apache-2.0.

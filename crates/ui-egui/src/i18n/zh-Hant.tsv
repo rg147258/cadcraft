@@ -1357,3 +1357,12 @@
 	Discard	捨棄
 	Customize	自訂
 	Edit Command Aliases (PGP)...	編輯指令別名 (PGP)...
+
+# Current-reference additions by @icec8c8; AI-assisted translations from English.
+	AutoLISP (LSP)	AutoLISP (LSP)
+	Units of new drawings	新圖面的單位
+	Imperial (inches)	英制（英吋）
+	Metric (millimetres)	公制（毫米）
+	New and the first drawing at startup use these units unless a default template is set (QNEWTEMPLATE).	除非已設定預設樣板（QNEWTEMPLATE），否則新圖面及啟動時的第一份圖面都使用這些單位。
+	Analyze Usage	分析使用情形
+	Implied Loops	辨識封閉輪廓
